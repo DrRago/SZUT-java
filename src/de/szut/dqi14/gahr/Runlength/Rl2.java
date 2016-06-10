@@ -65,7 +65,7 @@ public class Rl2 implements IRLed{
 
     @Override
     public String getInfile() {
-        // returns the inputName of the file
+        // returns the inputName of the file.txt
         return inName;
     }
 
@@ -109,7 +109,7 @@ public class Rl2 implements IRLed{
 
     @Override
     public String getOutfile() {
-        // returns the outputName of the file
+        // returns the outputName of the file.txt
         return this.outName;
     }
 

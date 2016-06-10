@@ -11,8 +11,8 @@ class Param {
         //declaration of needed options
         Options cliOptions = new Options();
 
-        Option optionFile = new Option("f", "file", true, "select path of the infile");
-        Option optionCSV = new Option("c", "csv_file", true, "csv-file contains the counted keywords");
+        Option optionFile = new Option("f", "file.txt", true, "select path of the infile");
+        Option optionCSV = new Option("c", "csv_file", true, "csv-file.txt contains the counted keywords");
 
         //declare optionFile as required Option
         optionFile.setRequired(true);
@@ -26,7 +26,7 @@ class Param {
         CommandLineParser lvParser = new DefaultParser();
         lvCmd = lvParser.parse(cliOptions, args);
 
-        file = lvCmd.getOptionValue("file");
+        file = lvCmd.getOptionValue("file.txt");
         csv = lvCmd.getOptionValue("csv_file");
     }
 }

@@ -1,7 +1,14 @@
 package de.szut.dqi14.gahr.Quellcodeverarbeitung;
 
 import org.apache.commons.cli.ParseException;
-
+/*
+* Fe
+* ewfwef
+* ewgewg
+* ewgew
+* gfwe
+* gewgwe
+ */
 import javax.swing.*;
 import java.io.*;
 import java.nio.file.Files;
@@ -15,10 +22,11 @@ class DeleteComments extends JFrame {
     private static String comments = "";
 
     public static void main(String[] args) throws ParseException, IOException {
-        DeleteCommentsGui gui = new DeleteCommentsGui();
-
         // initialize commons cli
         Param.param(args);
+
+        DeleteCommentsGui dyna = new DeleteCommentsGui();
+        dyna.prepareAndShowGUI();
 
         // set in/out name of the files
         String inFilePath = getInFilePath();
@@ -30,15 +38,15 @@ class DeleteComments extends JFrame {
         // remove comments from the file.txt
         file = removeComments(file);
 
+        dyna.write(comments.substring(0, comments.length()-2));
+
         // remove empty lines from the file.txt
         file = removeLines(file);
 
         // change className
         file = changeClassName(file);
 
-        // TODO edit GUI display type
-        comments += "-- new code --\n\n" + file + "\n\n-- new code --\n\nNew File is: " + outFilePath;
-        gui.write(comments);
+        System.out.println("\n----new code----");
 
         // printing new code
         System.out.println(file);

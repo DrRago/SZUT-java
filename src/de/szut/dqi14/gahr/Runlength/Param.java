@@ -18,9 +18,9 @@ class Param {
 
         Option optionExtension = new Option("e", "extension", true, "fileextension without a dot");
         Option optionQuiet = new Option("q", "quiet", false, "Launch the (de)compression without outputs");
-        Option optionCompress = new Option("c", "compress", false, "select, if the file shall be compressed");
-        Option optionUncompress = new Option("u", "uncompress", false, "select, if the file shall ve decompressed");
-        Option optionFile = new Option("f", "file", true, "select path of the inputfile");
+        Option optionCompress = new Option("c", "compress", false, "select, if the file.txt shall be compressed");
+        Option optionUncompress = new Option("u", "uncompress", false, "select, if the file.txt shall ve decompressed");
+        Option optionFile = new Option("f", "file.txt", true, "select path of the inputfile");
         Option optionRl3 = new Option("Rl3" , "Runlenght3", false, "(de)compress with Runlenght 3");
         Option optionRl2 = new Option("Rl2", "Runlenght2", false, "(de)compress with Runlenght 2");
 
@@ -53,7 +53,7 @@ class Param {
 
         uncompressed = lvCmd.hasOption("u");
         compressed = lvCmd.hasOption("c");
-        file = lvCmd.getOptionValue("file");
+        file = lvCmd.getOptionValue("file.txt");
         quiet = lvCmd.hasOption("q");
         extension = lvCmd.getOptionValue("extension");
         rl2 = lvCmd.hasOption("Rl2");
