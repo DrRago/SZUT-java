@@ -6,15 +6,18 @@ import java.awt.event.*;
 
 class DeleteCommentsGui extends JFrame implements ActionListener {
 
-    private JTextArea tArea = new JTextArea();
+    // declare global variables
+    JTextArea tArea = new JTextArea();
     private SwingWorker worker;
 
     public DeleteCommentsGui() {
+        // declare variables
         JFrame frame = new JFrame("DeleteComments");
         Container container = frame.getContentPane();
         JScrollPane pane = new JScrollPane(tArea);
         container.add(pane);
 
+        // set textarea options
         tArea.setEditable(false);
         tArea.setLineWrap(true);
         tArea.setWrapStyleWord(true);
@@ -27,6 +30,8 @@ class DeleteCommentsGui extends JFrame implements ActionListener {
         frame.setSize(700, 300);
         frame.setMinimumSize(frame.getSize());
         frame.setVisible(true);
+
+        System.out.println("GUI started");
     }
 
     void write(String s) {

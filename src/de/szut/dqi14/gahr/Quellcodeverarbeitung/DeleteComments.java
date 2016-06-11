@@ -12,54 +12,116 @@ import java.util.regex.Pattern;
 
 class DeleteComments extends JFrame {
 
-    private static String comments = "";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
 
-    public static void main(String[] args) throws ParseException, IOException {
-        DeleteCommentsGui gui = new DeleteCommentsGui();
+    private static String comments = "↓- comments & JavaDoc -↓\n\n";
+    private static int commentsCounter = 0;
+    private static int lineCounter = 0;
 
+    public static void main(String[] args) throws ParseException, IOException, InterruptedException {
         // initialize commons cli
         Param.param(args);
 
+        final String dividingLineColor = ANSI_PURPLE;
+
+        final String highlightedColor = ANSI_CYAN;
+
+        // initialize gui
+        System.out.println("Starting GUI...");
+        DeleteCommentsGui gui = new DeleteCommentsGui();
+        System.out.println(dividingLineColor + "------------------------------------------------------------" + ANSI_RESET);
+
         // set in/out name of the files
+        System.out.println("Getting inputfile path...");
         String inFilePath = getInFilePath();
+        System.out.println("Inputfile path is: " + highlightedColor + inFilePath + ANSI_RESET);
+
+        System.out.println(dividingLineColor + "------------------------------------------------------------" + ANSI_RESET);
+
+        System.out.println("Generating outputfile path...");
         String outFilePath = getOutFilePath(inFilePath);
+        System.out.println("Outputfile path is: " + highlightedColor + outFilePath + ANSI_RESET);
+
+        System.out.println(dividingLineColor + "------------------------------------------------------------" + ANSI_RESET);
 
         // call method read to get the content of the file.txt
+        System.out.println("Reading " + inFilePath + "...");
         String file = read(inFilePath);
+        System.out.println("Reading completed (" + highlightedColor + file.length() + " bytes" + ANSI_RESET + ")");
+
+        System.out.println(dividingLineColor + "------------------------------------------------------------" + ANSI_RESET);
 
         // remove comments from the file.txt
+        System.out.println("Removing comments & JavaDoc...");
         file = removeComments(file);
+        System.out.println(highlightedColor + commentsCounter + ANSI_RESET + " comments & JavaDoc removed");
+
+        System.out.println(dividingLineColor + "------------------------------------------------------------" + ANSI_RESET);
 
         // remove empty lines from the file.txt
+        System.out.println("Removing empty lines...");
         file = removeLines(file);
+        System.out.println(highlightedColor + lineCounter + ANSI_RESET + " empty lines removed");
+
+        System.out.println(dividingLineColor + "------------------------------------------------------------" + ANSI_RESET);
 
         // change className
+        System.out.println("Changing classname...");
         file = changeClassName(file);
+        System.out.println("Classname changed");
+
+        System.out.println(dividingLineColor + "------------------------------------------------------------" + ANSI_RESET);
 
         // TODO edit GUI display type
-        comments += "-- new code --\n\n" + file + "\n\n-- new code --\n\nNew File is: " + outFilePath;
+        System.out.println("Printing comments, JavaDoc and the new file in GUI...");
+        comments += "↑- comments & JavaDoc -↑\n\n\n↓- new code -↓\n\n" + file + "\n↑- new code -↑\n\nNew file is: " + outFilePath;
         gui.write(comments);
+        while (gui.tArea.getDocument().getLength() < comments.length()) {
+            Thread.sleep(1);
+        }
+        System.out.println("Printing completed");
 
-        // printing new code
-        System.out.println(file);
+        System.out.println(dividingLineColor + "------------------------------------------------------------" + ANSI_RESET);
 
         // write the new file.txt
+        System.out.println("Writing new file: " + outFilePath + "...");
         write((file), outFilePath);
+        System.out.println("File " + highlightedColor + outFilePath + ANSI_RESET + " created successfully");
 
         // write a csv-file.txt containing every occurrence of given keywords if commandline option "csv" is given
         if (Param.csv != null) {
             // count keyWords in a the file.txt
+            System.out.println("Counting keywords in file...");
             Map<String, Integer> keywordOccurrences = countKeywords(file);
+            System.out.println("Keywords counted");
+
+            System.out.println(dividingLineColor + "------------------------------------------------------------" + ANSI_RESET);
 
             // sort HashMap
+            System.out.println("Sorting counted keywords descending...");
             ValueComparator bvc = new ValueComparator(keywordOccurrences);
             TreeMap<String, Integer> sortedKeywordOccurrences = new TreeMap<>(bvc);
+            System.out.println("Keywords sorted");
 
             sortedKeywordOccurrences.putAll(keywordOccurrences);
 
+            System.out.println(dividingLineColor + "------------------------------------------------------------" + ANSI_RESET);
+
             // write csv-file.txt
+            System.out.println("Writing csv-file " + Param.csv);
             writeCSV(sortedKeywordOccurrences, Param.csv);
+            System.out.println("csv-file " + highlightedColor + Param.csv + ANSI_RESET + "created");
         }
+
+        System.out.println("\n" + ANSI_GREEN + "Program finished" + ANSI_RESET);
     }
 
     private static String changeClassName(String file) {
@@ -81,6 +143,8 @@ class DeleteComments extends JFrame {
         // use scanner to iterate through a string
         Scanner s = new Scanner(file);
 
+        int lines = file.split("\r\n|\r|\n").length;
+
         // loop to iterate through the string each line
         while (s.hasNextLine()) {
             String line = s.nextLine();
@@ -100,6 +164,7 @@ class DeleteComments extends JFrame {
                 }
             }
         }
+        lineCounter = lines - result.split("\r\n|\r|\n").length;
         return result;
     }
 
@@ -192,6 +257,7 @@ class DeleteComments extends JFrame {
                         currentState = noComment;
                         // print the comment and clear the string
                         comments += comment + "\n";
+                        commentsCounter ++;
                         comment = "";
                         result += c;
                     }
@@ -219,6 +285,7 @@ class DeleteComments extends JFrame {
                             // print the comment and clear the string
                             comment += c2;
                             comments += comment + "\n\n";
+                            commentsCounter ++;
                             comment = "";
                             currentState = noComment;
                             break;
