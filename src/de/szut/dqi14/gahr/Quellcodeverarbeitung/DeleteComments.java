@@ -12,15 +12,10 @@ import java.util.regex.Pattern;
 
 class DeleteComments extends JFrame {
 
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_PURPLE = "\u001B[35m";
+    private static final String ANSI_CYAN = "\u001B[36m";
 
     private static String comments = "↓- comments & JavaDoc -↓\n\n";
     private static int commentsCounter = 0;
@@ -85,7 +80,7 @@ class DeleteComments extends JFrame {
         comments += "↑- comments & JavaDoc -↑\n\n\n↓- new code -↓\n\n" + file + "\n↑- new code -↑\n\nNew file is: " + outFilePath;
         gui.write(comments);
         while (gui.tArea.getDocument().getLength() < comments.length()) {
-            Thread.sleep(1);
+            Thread.sleep(1);  // random bug appears, so we wait 1
         }
         System.out.println("Printing completed");
 
