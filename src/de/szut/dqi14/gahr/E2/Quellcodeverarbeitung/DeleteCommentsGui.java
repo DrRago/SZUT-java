@@ -7,7 +7,7 @@ import java.awt.event.*;
 class DeleteCommentsGui extends JFrame implements ActionListener {
 
     // declare global variables
-    JTextArea tArea = new JTextArea();
+    final JTextArea tArea = new JTextArea();
     private SwingWorker worker;
 
     public DeleteCommentsGui() {

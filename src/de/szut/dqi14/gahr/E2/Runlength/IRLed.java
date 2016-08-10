@@ -1,8 +1,4 @@
 package de.szut.dqi14.gahr.E2.Runlength;
-/**
- * short description
- * 
- */
 
 /**
  * short description

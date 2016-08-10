@@ -3,7 +3,7 @@ package de.szut.dqi14.gahr.E2;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Date {
+class Date {
     public static void main(String[] args) throws InterruptedException {
         System.out.println(getNextDay());
     }

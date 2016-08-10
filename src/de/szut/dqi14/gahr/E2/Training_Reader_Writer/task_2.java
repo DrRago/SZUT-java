@@ -10,6 +10,7 @@ class task_2 {
         int durch = (int) myFile.length()/5;
         System.out.println(durch);
         char[] letters = new char[5];
+        //noinspection ResultOfMethodCallIgnored
         input.read(letters, 0, 5);
         int count = 1;
         while (count <= durch) {
@@ -18,10 +19,12 @@ class task_2 {
             }
             output.write(letters);
             letters = new char[5];
+            //noinspection ResultOfMethodCallIgnored
             input.read(letters, 0, 5);
             count ++;
         }
         char[] lastletters = new char[3];
+        //noinspection ResultOfMethodCallIgnored
         input.read(lastletters, 0, 3);
         for (int i: lastletters) {
             System.out.println(i);
