@@ -80,7 +80,7 @@ class DeleteComments extends JFrame {
         comments += "↑- comments & JavaDoc -↑\n\n\n↓- new code -↓\n\n" + file + "\n↑- new code -↑\n\nNew file is: " + outFilePath;
         gui.write(comments);
         while (gui.tArea.getDocument().getLength() < comments.length()) {
-            Thread.sleep(1);  // random bug appears, so we wait 1
+            Thread.sleep(1);  // random bug appears, so we wait 1 millisecond
         }
         System.out.println("Printing completed");
 
