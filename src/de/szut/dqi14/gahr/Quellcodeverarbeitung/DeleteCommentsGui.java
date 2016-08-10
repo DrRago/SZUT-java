@@ -21,7 +21,7 @@ class DeleteCommentsGui extends JFrame implements ActionListener {
         tArea.setEditable(false);
         tArea.setLineWrap(true);
         tArea.setWrapStyleWord(true);
-        tArea.setForeground(Color.WHITE);
+        tArea.setForeground(Color.GREEN);
         tArea.setBackground(Color.BLACK);
 
 
